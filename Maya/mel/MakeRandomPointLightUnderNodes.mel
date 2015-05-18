@@ -1,0 +1,42 @@
+string $lists[] = `ls -sl`;
+int $numOfFiles = `size( $lists)`;
+int $x;
+
+	
+for($x = 0; $x < $numOfFiles; $x++){
+	// each object copy.
+	string $skeltonName = $lists[$x];
+	print $skeltonName;
+	
+	// light creation.
+	$lightShapeName = `pointLight`;
+	print $lightShapeName;
+	$lightName = `substitute "Shape" $lightShapeName ""`;
+	print $lightName;
+	
+	// color setting
+	string $lightColorRName = $lightShapeName + ".colorR";
+	string $lightColorGName = $lightShapeName + ".colorG";
+	string $lightColorBName = $lightShapeName + ".colorB";
+	
+	float $colorR = `rand 1`;
+	float $colorG = `rand 1`;
+	float $colorB = `rand 1`;
+	setAttr $lightColorRName $colorR;
+	setAttr $lightColorGName $colorG; 
+	setAttr $lightColorBName $colorB;
+	
+	// intensity setting
+	string $lightIntensity = $lightShapeName + ".intensity";
+	setAttr $lightIntensity 10000;
+	
+	// decay rate setting
+	string $lightDecayRate = $lightShapeName + ".decayRate";
+	setAttr $lightDecayRate 2;
+	
+	// off ray trace shadow
+	string $lightRayTrace = $lightShapeName + ".useRayTraceShadows";
+	setAttr $lightRayTrace 0;
+	
+	parent -r $lightName $skeltonName;
+}

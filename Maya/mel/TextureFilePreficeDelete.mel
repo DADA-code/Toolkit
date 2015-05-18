@@ -1,0 +1,14 @@
+string $lists[] = `ls -sl`;
+int $numOfFiles = `size( $lists)`;
+int $x;
+
+for($x = 0; $x < $numOfFiles; $x++){
+	string $fileName = $lists[$x];
+	print $fileName;
+	string $name = `getAttr ($fileName + ".fileTextureName")`;
+	string $wrongPrefix = "textures";
+	string $correctName = `substitute $wrongPrefix $name ""`;
+	setAttr -type "string" ($fileName + ".fileTextureName") $correctName;
+	print $correctName;
+
+}
